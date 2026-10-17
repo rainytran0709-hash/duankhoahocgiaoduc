@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -34,7 +34,6 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    // Nếu Google API trả về lỗi, bắt và log lại để dễ debug
     if (!response.ok || data.error) {
       console.error("Lỗi từ Google Gemini API:", data);
       return res.status(response.status || 500).json({
@@ -58,4 +57,4 @@ export default async function handler(req, res) {
     console.error("Lỗi Server nội bộ:", error);
     return res.status(500).json({ error: error.message });
   }
-}
+};
